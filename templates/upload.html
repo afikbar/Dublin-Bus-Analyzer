@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="dl-color--white mdl-shadow--2dp mdl-cell mdl-cell--4-col">
+            {% for category, message in messages %}
+            <div class="flashes {{category}}">
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+    <div class="mdl-layout-spacer"></div>
+</div>
+<div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--2-col">
+        <form class="upload-form" name="upload" method="post" action="{{ url_for('upload_file') }}"
+            enctype="multipart/form-data">
+            <input name="file" id="file-picker" type="file" class="hidden"
+                onchange="document.forms.upload.submit()">
+            <label for="file-picker"
+                class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Stream
+                File</label>
+        </form>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+</div>
+{% endblock %}
