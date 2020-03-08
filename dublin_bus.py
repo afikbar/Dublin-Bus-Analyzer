@@ -60,16 +60,16 @@ def close(handle, headers):
     return perform_query('/dbfs/close', headers=headers, data=_data)
 
 
-def put_file(src_path, dbfs_path, overwrite, headers):
+def put_file(local_file, dbfs_path, overwrite, headers):
     handle = create(dbfs_path, overwrite, headers=headers)['handle']
     print("Putting file: " + dbfs_path)
-    with open(src_path, 'rb') as local_file:
-        while True:
-            contents = local_file.read(2**20)
-            if len(contents) == 0:
-                break
-            add_block(handle, b64encode(contents).decode(), headers=headers)
-        close(handle, headers=headers)
+    # with open(src_path, 'rb') as local_file:
+    while True:
+        contents = local_file.read(2**20)
+        if len(contents) == 0:
+            break
+        add_block(handle, b64encode(contents).decode(), headers=headers)
+    close(handle, headers=headers)
 
 
 # mkdirs(path=dbfs_dir, headers=headers)
@@ -131,16 +131,16 @@ def upload_file():
         try:
             if file and allowed_file(file):
                 filename = str(uuid1())
-                local_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                file.save(local_path)
-                flash('File successfully uploaded', 'success')
+                # local_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                # file.save(local_path)
+                # flash('File successfully uploaded', 'success')
                 # Upload to dbfs:
                 print("Uploading to DBFS...")
-                resp = put_file(src_path=local_path, dbfs_path=dbfs_dir+filename, overwrite=True, headers=headers)
+                resp = put_file(local_file=file, dbfs_path=dbfs_dir+filename, overwrite=True, headers=headers)
                 if resp == None:
-                    print("Successfully upload to DBFS!")
+                    flash("Successfully upload to DBFS!", 'success')
                 else:
-                    print("Failed to upload: " + resp)
+                    flash("Failed to upload: " + resp, 'error')
                 return redirect(url_for('upload_form'))
             else:
                 flash(f"Allowed Schema is: {ALLOWED_SCHEMA}", 'error')
