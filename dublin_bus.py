@@ -141,7 +141,7 @@ def upload_file():
                     print("Successfully upload to DBFS!")
                 else:
                     print("Failed to upload: " + resp)
-                return redirect('/')
+                return redirect(url_for('upload_form'))
             else:
                 flash(f"Allowed Schema is: {ALLOWED_SCHEMA}", 'error')
                 return redirect(request.url)

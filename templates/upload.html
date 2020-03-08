@@ -4,13 +4,11 @@
     <div class="mdl-layout-spacer"></div>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="dl-color--white mdl-shadow--2dp mdl-cell mdl-cell--4-col">
             {% for category, message in messages %}
-            <div class="flashes {{category}}">
+            <div class="dl-color--white mdl-shadow--2dp mdl-cell mdl-cell--4-col flashes {{category}}">
                 <p>{{ message }}</p>
             </div>
             {% endfor %}
-        </div>
         {% endif %}
     {% endwith %}
     <div class="mdl-layout-spacer"></div>
