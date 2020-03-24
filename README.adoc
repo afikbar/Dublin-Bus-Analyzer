@@ -59,6 +59,10 @@ Processing is accomplished by using Spark 2.4.5 (PySpark).
 
 You will need to install elasticsearch connector for Spark (version 7.4.5).
 
+To start streaming, run all cells above `Re-calculate Centroids using Streamed Data:` title.
+
+To update the calculated centroids, using newly streamed data, run cells below the mentioned title.
+
 == Usage
 
 === Live Map
@@ -68,11 +72,11 @@ You can filter, adjust time frame, and traverse through the map.
 
 The default view of map has 5 types of layers.
 
-1. Stations RTPi: 'Real' location of stations, extracted from Dublin Public transportation API.
-2. * Centroids: Different kind of methods to predict stations location.
-3. Warm-Start Data: the mentioned data from above, which we've fixed (Aligned by route, and at-stop fix), hidden by default.
-4. Raw Stream Data: Raw input from stream.
-5. Fixed Stream: Streamed data that was processed and fixed.
+. Stations RTPi: 'Real' location of stations, extracted from Dublin Public transportation API.
+. * Centroids: Different kind of methods to predict stations location.
+. Stream Fixed Data : Streamed data that was processed and fixed.
+. Stream Raw Data: Raw input from stream.
+. Warm-Start Data: the mentioned data from above, which we've fixed (Aligned by route, and at-stop fix), hidden by default.
 
 ==== Adjust time-frame:
 
